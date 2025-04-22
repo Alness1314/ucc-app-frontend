@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Transición de desvanecimiento */
+.fade-enter {
+    opacity: 0;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in-out;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+}
+
+.input-container {
+    font-weight: lighter;
+}
+
+/* Estilo del botón interno del input file */
+.input-container input[type="file"]::-webkit-file-upload-button {
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+  margin-right: 5px;
+  letter-spacing: 0.5px;
+  color: #fff;
+  outline: none;
+  border: none;
+  background: #2196f3; /* indigo 500 material tailwind css */
+  cursor: pointer;
+  transition: background 0.3s, transform 0.1s; /* Transiciones suaves */
+}
+
+/* Hover: más claro */
+.input-container input[type="file"]::-webkit-file-upload-button:hover {
+  background: #0885ea; /* indigo 400 material tailwind css */
+}
+
+/* Presionado: efecto de clic */
+.input-container input[type="file"]::-webkit-file-upload-button:active {
+  background: #1976d2; /* indigo 600 material tailwind css */
+  transform: scale(0.95); /* Efecto de presionado */
+}

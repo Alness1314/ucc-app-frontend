@@ -1,0 +1,47 @@
+/* Estilos para el modo oscuro */
+.swal2-dark {
+    background-color: #1e1e1e;
+    color: #ffffff;
+  }
+  
+  .swal2-dark .swal2-title {
+    color: #ffffff;
+  }
+  
+  .swal2-dark .swal2-content {
+    color: #ffffff;
+  }
+  
+  .swal2-dark .swal2-confirm {
+    background-color: #4caf50;
+    color: #ffffff;
+  }
+  
+  .swal2-dark .swal2-cancel {
+    background-color: #f44336;
+    color: #ffffff;
+  }
+  
+  /* Estilos para el modo claro */
+  .swal2-light {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  .swal2-light .swal2-title {
+    color: #000000;
+  }
+  
+  .swal2-light .swal2-content {
+    color: #000000;
+  }
+  
+  .swal2-light .swal2-confirm {
+    background-color: #4caf50;
+    color: #ffffff;
+  }
+  
+  .swal2-light .swal2-cancel {
+    background-color: #f44336;
+    color: #ffffff;
+  }
