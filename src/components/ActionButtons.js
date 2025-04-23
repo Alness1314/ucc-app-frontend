@@ -1,5 +1,5 @@
 import React from "react";
-import { EyeIcon, PencilSquareIcon, TrashIcon, StopIcon, PlayIcon, PlayPauseIcon } from "@heroicons/react/24/solid"; // Íconos de Heroicons
+import { EyeIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid"; // Íconos de Heroicons
 import { IconButton } from "@material-tailwind/react";
 import PropTypes from "prop-types";
 

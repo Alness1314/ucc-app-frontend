@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import DynamicTable from "../../components/DynamicTable"; // Importa el componente de la tabla
-import { Button, IconButton, Typography } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import SweetAlert2 from '../../components/SweetAlert2';
-import { TrashIcon, PlusIcon, StopIcon, PlayIcon, PlayPauseIcon } from "@heroicons/react/24/solid"; // Íconos de Heroicons
+import { PlusIcon } from "@heroicons/react/24/solid"; // Íconos de Heroicons
 import Breadcrumbs from "../../components/Breadcrumbs"; // Importa el componente Breadcrumbs
 import apiService from "../../service/ApiService";
 import Swal from 'sweetalert2';
@@ -41,66 +41,6 @@ export default function JobServices({ darkMode }) {
     useEffect(() => {
         fetchData();
     }, []);
-
-    // Columnas de la tabla
-    const columns = [
-        {
-            header: "ID",
-            accessorKey: "jobId", // La clave debe coincidir con el campo en los datos
-        },
-        {
-            header: "Nombre",
-            accessorKey: "jobName",
-        },
-        {
-            header: "Descripción",
-            accessorKey: "description",
-        },
-        {
-            header: "Grupo",
-            accessorKey: "jobGroup",
-        },
-        {
-            header: "Estado",
-            accessorKey: "jobStatus",
-        },
-        {
-            header: "Habilitado",
-            accessorKey: "enabled",
-            cell: ({ getValue }) => (getValue() ? "Activo" : "Inactivo"), // Formatear el estado
-        },
-        {
-            header: "Acciones",
-            cell: ({ row }) => (
-                <div className="flex gap-2">
-                    <IconButton
-                        onClick={() => handleRun(row.original.jobId)}
-                        className="bg-indigo-400 dark:bg-indigo-200"
-                    >
-                        <PlayIcon className="h-5 w-5 text-white dark:text-gray-900" />
-                    </IconButton>
-                    <IconButton
-                        onClick={() => handleStop(row.original.jobId)}
-                        className="bg-indigo-400 dark:bg-indigo-200"
-                    >
-                        <StopIcon className="h-5 w-5 text-white dark:text-gray-900" />
-                    </IconButton>
-                    <IconButton
-                        onClick={() => handleResume(row.original.jobId)}
-                        className="bg-indigo-400 dark:bg-indigo-200"
-                    >
-                        <PlayPauseIcon className="h-5 w-5 text-white dark:text-gray-900" />
-                    </IconButton>
-                    <IconButton
-                        onClick={() => handleDelete(row.original.jobId)}
-                        className="bg-indigo-400 dark:bg-indigo-200"
-                    >
-                        <TrashIcon className="h-5 w-5 text-white dark:text-gray-900" />
-                    </IconButton>
-                </div>
-            ),
-        },
-    ];
 
     // Funciones para manejar acciones
     const handleRun = async (id) => {
@@ -225,8 +165,8 @@ export default function JobServices({ darkMode }) {
         }
     };
 
-      // Columnas de la tabla
-  const columns = getColumns({ handleDelete, handleRun, handleResume, handleStop});
+    // Columnas de la tabla
+    const columns = getColumns({ handleDelete, handleRun, handleResume, handleStop });
 
     // Función para redirigir al formulario de registro
     const handleAdd = () => {
@@ -236,7 +176,7 @@ export default function JobServices({ darkMode }) {
     // Generar las rutas para el Breadcrumbs
     const breadcrumbsPaths = [
         {
-            name: "Home",
+            name: "Catálogos",
             route: "/Dashboard",
             icon: (
                 <svg
@@ -259,25 +199,31 @@ export default function JobServices({ darkMode }) {
         <div className="p-0 m-0">
             {/* Breadcrumbs */}
             <Breadcrumbs darkMode={darkMode} paths={breadcrumbsPaths} />
-            <Typography variant="h4" className={`mb-1 ${textColor}`}>
-                Servicios
-            </Typography>
-            <Typography variant="paragraph" className={`mb-2 ${subTextColor}`}>
-                Administra los servicios en ejecucion
-            </Typography>
-            <hr className="my-2 border-gray-800" />
 
-            {/* Botón para agregar un nuevo sistema de medición */}
-            <div className="flex justify-end mb-1 mt-4 mr-4">
+            {/* Header panel */}
+            <div className="flex justify-between items-center mb-1 mt-4 mr-4">
+                {/* Title */}
+                <div>
+                    <Typography variant="h4" className={`mb-1 ${textColor}`}>
+                        Servicios
+                    </Typography>
+                    <Typography variant="paragraph" className={`mb-2 ${subTextColor}`}>
+                        Administra los servicios en ejecucion
+                    </Typography>
+                </div>
+
+                {/* Botón para agregar un nuevo usuario */}
                 <Button
                     color="indigo"
                     className="flex items-center gap-2"
-                    onClick={handleAddMeasurementSystem}
+                    onClick={handleAdd}
                 >
                     <PlusIcon className="h-5 w-5" />
                     Registrar
                 </Button>
             </div>
+
+            <hr className="my-2 border-gray-800" />
 
             {/* Mostrar la tabla con los datos */}
             <DynamicTable

@@ -24,7 +24,7 @@ const JobServiceRegister = ({ darkMode }) => {
     // Generar las rutas para el Breadcrumbs
     const breadcrumbsPaths = [
         {
-            name: "Home",
+            name: "Catálogos",
             route: "/Dashboard",
             icon: (
                 <svg

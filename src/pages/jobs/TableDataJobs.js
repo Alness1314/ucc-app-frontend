@@ -1,4 +1,5 @@
-import ActionButtons from "../../components/ActionButtons"
+import { TrashIcon, StopIcon, PlayIcon, PlayPauseIcon } from "@heroicons/react/24/solid"; // Íconos de Heroicons
+import { IconButton } from "@material-tailwind/react";
 
 export const getColumns = ({ handleRun, handleStop, handleResume, handleDelete }) => [
     {
@@ -26,35 +27,35 @@ export const getColumns = ({ handleRun, handleStop, handleResume, handleDelete }
         accessorKey: "enabled",
         cell: ({ getValue }) => (getValue() ? "Activo" : "Inactivo"), // Formatear el estado
     },
-     {
-                header: "Acciones",
-                cell: ({ row }) => (
-                    <div className="flex gap-2">
-                        <IconButton
-                            onClick={() => handleRun(row.original.jobId)}
-                            className="bg-indigo-400 dark:bg-indigo-200"
-                        >
-                            <PlayIcon className="h-5 w-5 text-white dark:text-gray-900" />
-                        </IconButton>
-                        <IconButton
-                            onClick={() => handleStop(row.original.jobId)}
-                            className="bg-indigo-400 dark:bg-indigo-200"
-                        >
-                            <StopIcon className="h-5 w-5 text-white dark:text-gray-900" />
-                        </IconButton>
-                        <IconButton
-                            onClick={() => handleResume(row.original.jobId)}
-                            className="bg-indigo-400 dark:bg-indigo-200"
-                        >
-                            <PlayPauseIcon className="h-5 w-5 text-white dark:text-gray-900" />
-                        </IconButton>
-                        <IconButton
-                            onClick={() => handleDelete(row.original.jobId)}
-                            className="bg-indigo-400 dark:bg-indigo-200"
-                        >
-                            <TrashIcon className="h-5 w-5 text-white dark:text-gray-900" />
-                        </IconButton>
-                    </div>
-                ),
-            },
+    {
+        header: "Acciones",
+        cell: ({ row }) => (
+            <div className="flex gap-2">
+                <IconButton
+                    onClick={() => handleRun(row.original.jobId)}
+                    className="bg-indigo-400 dark:bg-indigo-200"
+                >
+                    <PlayIcon className="h-5 w-5 text-white dark:text-gray-900" />
+                </IconButton>
+                <IconButton
+                    onClick={() => handleStop(row.original.jobId)}
+                    className="bg-indigo-400 dark:bg-indigo-200"
+                >
+                    <StopIcon className="h-5 w-5 text-white dark:text-gray-900" />
+                </IconButton>
+                <IconButton
+                    onClick={() => handleResume(row.original.jobId)}
+                    className="bg-indigo-400 dark:bg-indigo-200"
+                >
+                    <PlayPauseIcon className="h-5 w-5 text-white dark:text-gray-900" />
+                </IconButton>
+                <IconButton
+                    onClick={() => handleDelete(row.original.jobId)}
+                    className="bg-indigo-400 dark:bg-indigo-200"
+                >
+                    <TrashIcon className="h-5 w-5 text-white dark:text-gray-900" />
+                </IconButton>
+            </div>
+        ),
+    },
 ]
