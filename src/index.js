@@ -4,12 +4,16 @@ import "./index.css";
 import App from "./App";
 
 import { ThemeProvider } from "@material-tailwind/react";
+import { loadConfig } from "./cfg/ConfigLoader";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
+
+loadConfig().then(() => {
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(<React.StrictMode>
     <ThemeProvider>
       <App />
     </ThemeProvider>
-  </React.StrictMode>,
-);
+  </React.StrictMode>,);
+}).catch((err) => {
+  console.error('Error cargando configuración', err);
+});

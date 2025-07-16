@@ -71,7 +71,7 @@ const EditVariableSettings = ({ darkMode }) => {
     ];
 
     const handleSubmit = async (formData) => {
-        apiService.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/global-settings`, JSON.stringify(formData), true)
+        apiService.put(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/global-settings/${id}`, JSON.stringify(formData), true)
             .then(response => {
                 if (response.status >= 200 && response.status < 300) {
                     SweetAlert2({

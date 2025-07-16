@@ -1,0 +1,5 @@
+{
+    "REACT_APP_API_URL": "https://cv360.grupoidesa.com:7082",
+    "REACT_APP_API_PREFIX": "/api/ucc",
+    "REACT_APP_BACKGROUND_IMAGE": "https://media.gettyimages.com/id/466485780/es/foto/refinería-de-petróleo.jpg?s=2048x2048&w=gi&k=20&c=q1BkLxnN3Ais3vMc1qz-0I6mf04K0G-PI9eqemAXur0="
+}
