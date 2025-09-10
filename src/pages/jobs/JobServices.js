@@ -6,11 +6,9 @@ import SweetAlert2 from '../../components/SweetAlert2';
 import { PlusIcon } from "@heroicons/react/24/solid"; // Íconos de Heroicons
 import Breadcrumbs from "../../components/Breadcrumbs"; // Importa el componente Breadcrumbs
 import apiService from "../../service/ApiService";
-import Swal from 'sweetalert2';
 import { getColumns } from "./TableDataJobs"
 
 export default function JobServices({ darkMode }) {
-    const [token] = useState(localStorage.getItem("token")); // Estado para rastrear el token
     const [data, setData] = useState([]); // Estado para los datos
     const [loading, setLoading] = useState(true); // Estado para el indicador de carga
     const [error, setError] = useState(null); // Estado para manejar errores
@@ -20,111 +18,109 @@ export default function JobServices({ darkMode }) {
     const subTextColor = darkMode ? "text-blue-gray-200" : "text-blue-grey";
 
     // Función para obtener los datos del endpoint
-    const fetchData = async () => {
-        if (!token) return;
-        try {
-            setLoading(true); // Activar el indicador de carga
-            const response = await apiService.get(
-                `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/crons`,
-                null, // No se necesitan parámetros adicionales
-                true // Indica que la solicitud requiere autenticación
-            );
-            setData(response.data); // Guardar los datos en el estado
-        } catch (err) {
-            setError(err.message); // Manejar errores
-        } finally {
-            setLoading(false); // Desactivar el indicador de carga
-        }
+    const fetchData = async () =>{
+        apiService.get(
+            `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/crons`,
+            null, // No se necesitan parámetros adicionales
+            true // Indica que la solicitud requiere autenticación
+        ).then(response => {
+            if (response.status >= 200 && response.status < 300) {
+                setData(response.data);
+            }
+        })
+            .catch(error => setError(error.message))
+            .finally(() => setLoading(false))
     };
 
     // Ejecutar la función al cargar el componente
     useEffect(() => {
         fetchData();
-    }, []);
+    },[]);
 
     // Funciones para manejar acciones
     const handleRun = async (id) => {
-        try {
-            const response = await apiService.post(
-                `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/crons/runjob/${id}`,
-                null, // No se envía body en esta solicitud
-                true // Indica que la solicitud requiere autenticación
-            );
+        apiService.post(
+            `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/crons/runjob/${id}`,
+            null, // No se envía body en esta solicitud
+            true // Indica que la solicitud requiere autenticación
+        ).then(response => {
+            if (response.status >= 200 && response.status < 300) {
+                SweetAlert2({
+                    title: 'Éxito',
+                    text: 'Servicio ejecutado correctamente',
+                    icon: 'success',
+                    confirmButtonColor: "#3bdb39",
+                    confirmButtonText: 'Aceptar',
+                });
 
-            await Swal.fire({
-                title: 'Éxito',
-                text: 'Servicio ejecutado correctamente',
-                icon: 'success',
-                confirmButtonColor: "#3bdb39",
-                confirmButtonText: 'Aceptar',
-            });
-
-            fetchData(); // Refrescar los datos de la tabla
-        } catch (error) {
-            await Swal.fire({
+                fetchData(); // Refrescar los datos de la tabla
+            }
+        })
+            .catch(error => SweetAlert2({
                 title: 'Error',
                 text: error.message || 'Error al ejecutar la tarea',
                 icon: 'error',
                 confirmButtonColor: "#3bdb39",
                 confirmButtonText: 'Aceptar',
-            });
-        }
+            }))
     };
 
     const handleResume = async (id) => {
-        try {
-            const response = await apiService.post(
-                `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/crons/resumejob/${id}`,
-                null, // No se envía body en esta solicitud
-                true // Indica que la solicitud requiere autenticación
-            );
+        apiService.post(
+            `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/crons/resumejob/${id}`,
+            null, // No se envía body en esta solicitud
+            true // Indica que la solicitud requiere autenticación
+        ).then(response => {
+            if (response.status >= 200 && response.status < 300) {
+                SweetAlert2({
+                    title: 'Éxito',
+                    text: 'Servicio reanudado correctamente',
+                    icon: 'success',
+                    confirmButtonColor: "#3bdb39",
+                    confirmButtonText: 'Aceptar',
+                });
 
-            await Swal.fire({
-                title: 'Éxito',
-                text: 'Servicio reanudado correctamente',
-                icon: 'success',
-                confirmButtonColor: "#3bdb39",
-                confirmButtonText: 'Aceptar',
-            });
-
-            fetchData(); // Refrescar los datos de la tabla
-        } catch (error) {
-            await Swal.fire({
-                title: 'Error',
-                text: error.message || 'Error al reanudar la tarea',
-                icon: 'error',
-                confirmButtonColor: "#3bdb39",
-                confirmButtonText: 'Aceptar',
-            });
-        }
+                fetchData(); // Refrescar los datos de la tabla
+            }
+        })
+            .catch(error => {
+                SweetAlert2({
+                    title: 'Error',
+                    text: error.message || 'Error al reanudar la tarea',
+                    icon: 'error',
+                    confirmButtonColor: "#3bdb39",
+                    confirmButtonText: 'Aceptar',
+                });
+            })
     };
 
     const handleStop = async (id) => {
-        try {
-            const response = await apiService.post(
-                `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/crons/pausejob/${id}`,
-                null, // No se envía body en esta solicitud
-                true // Indica que la solicitud requiere autenticación
-            );
+        apiService.post(
+            `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/crons/pausejob/${id}`,
+            null, // No se envía body en esta solicitud
+            true // Indica que la solicitud requiere autenticación
+        ).then(response => {
+            if (response.status >= 200 && response.status < 300) {
+                SweetAlert2({
+                    title: 'Éxito',
+                    text: 'Servicio pausado correctamente',
+                    icon: 'success',
+                    confirmButtonColor: "#3bdb39",
+                    confirmButtonText: 'Aceptar',
+                });
 
-            await Swal.fire({
-                title: 'Éxito',
-                text: 'Servicio pausado correctamente',
-                icon: 'success',
-                confirmButtonColor: "#3bdb39",
-                confirmButtonText: 'Aceptar',
-            });
-
-            fetchData(); // Refrescar los datos de la tabla
-        } catch (error) {
-            await Swal.fire({
-                title: 'Error',
-                text: error.message || 'Error al pausar la tarea',
-                icon: 'error',
-                confirmButtonColor: "#3bdb39",
-                confirmButtonText: 'Aceptar',
-            });
-        }
+                fetchData(); // Refrescar los datos de la tabla
+            }
+        })
+            .catch(error => {
+                SweetAlert2({
+                    title: 'Error',
+                    text: error.message || 'Error al pausar la tarea',
+                    icon: 'error',
+                    confirmButtonColor: "#3bdb39",
+                    confirmButtonText: 'Aceptar',
+                });
+            })
     };
 
     const handleDelete = async (id) => {
@@ -140,28 +136,29 @@ export default function JobServices({ darkMode }) {
         });
 
         if (result.isConfirmed) {
-            try {
-                const response = await apiService.delete(
-                    `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/crons/deletejob/${id}`,
-                    true
-                );
+            apiService.delete(
+                `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/crons/deletejob/${id}`,
+                true
+            ).then(response => {
+                if (response.status >= 200 && response.status < 300) {
+                    SweetAlert2({
+                        title: "Eliminado",
+                        text: "Servicio eliminado correctamente",
+                        icon: "success",
+                        confirmButtonText: "Aceptar",
+                    });
 
-                await SweetAlert2({
-                    title: "Eliminado",
-                    text: "Servicio eliminado correctamente",
-                    icon: "success",
-                    confirmButtonText: "Aceptar",
-                });
-
-                fetchData(); // Refrescar los datos de la tabla
-            } catch (error) {
-                await SweetAlert2({
-                    title: "Error",
-                    text: error.message || "Error al eliminar el servicio",
-                    icon: "error",
-                    confirmButtonText: "Aceptar",
-                });
-            }
+                    fetchData(); // Refrescar los datos de la tabla
+                }
+            })
+                .catch(error => {
+                    SweetAlert2({
+                        title: "Error",
+                        text: error.message || "Error al eliminar el servicio",
+                        icon: "error",
+                        confirmButtonText: "Aceptar",
+                    });
+                })
         }
     };
 

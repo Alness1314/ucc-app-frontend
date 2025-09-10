@@ -7,15 +7,17 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
+import PropTypes from 'prop-types';
 
-const DynamicForm = ({ fields, onSubmit, initialValues, darkMode = false }) => {
+
+export const DynamicForm = ({ fields, onSubmit, initValues, darkMode }) => {
     const { control, handleSubmit, reset } = useForm();
 
     useEffect(() => {
-        if (initialValues) {
-            reset(initialValues);
+        if (initValues) {
+            reset(initValues);
         }
-    }, [initialValues, reset]);
+    }, [initValues, reset]);
 
     const getColumnClass = (span) => {
         return span;
@@ -277,6 +279,12 @@ const DynamicForm = ({ fields, onSubmit, initialValues, darkMode = false }) => {
             </form>
         </LocalizationProvider>
     );
+
 };
 
-export default DynamicForm;
+DynamicForm.propTypes = {
+    fields: PropTypes.any,
+    onSubmit: PropTypes.any,
+    initValues: PropTypes.any,
+    darkMode: PropTypes.any.isRequired,
+};

@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import DynamicForm from '../../components/DynamicForm';
+import { DynamicForm } from '../../components/DynamicForm';
 import { Typography } from '@material-tailwind/react';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import apiService from '../../service/ApiService'

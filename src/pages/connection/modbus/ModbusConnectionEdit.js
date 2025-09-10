@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Typography } from '@material-tailwind/react';
 import { useParams, useNavigate } from 'react-router-dom';
 import SweetAlert2 from '../../../components/SweetAlert2';
-import DynamicForm from '../../../components/DynamicForm'; // Importa el componente DynamicForm
+import { DynamicForm } from '../../../components/DynamicForm'; // Importa el componente DynamicForm
 import Breadcrumbs from '../../../components/Breadcrumbs';
 
 const ModbusConnectionEdit = ({ darkMode }) => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Typography, Dialog, DialogBody, DialogFooter } from '@material-tailwind/react';
 import SweetAlert2 from '../../components/SweetAlert2';
-import DynamicForm from '../../components/DynamicForm'; // Importa el componente DynamicForm
+import { DynamicForm } from '../../components/DynamicForm'; // Importa el componente DynamicForm
 import PropTypes from 'prop-types';
 import apiService from '../../service/ApiService';
 

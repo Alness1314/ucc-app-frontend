@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DynamicForm from '../../components/DynamicForm';
+import { DynamicForm } from '../../components/DynamicForm';
 import Swal from 'sweetalert2';
 import SweetAlert2 from '../../components/SweetAlert2';
 import { Typography } from '@material-tailwind/react';
