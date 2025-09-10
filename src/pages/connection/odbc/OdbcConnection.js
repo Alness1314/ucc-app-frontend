@@ -48,7 +48,7 @@ export default function OdbcConnection({ darkMode }) {
     };
 
     const handleUpdate = (id) => {
-        navigate(`/opc-server/update/${id}`);
+        navigate(`/odbc`);
     };
 
     const handleDelete = async (id) => {
@@ -65,7 +65,7 @@ export default function OdbcConnection({ darkMode }) {
 
         if (result.isConfirmed) {
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/opc-conexion/${id}`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/odbc-conexion/${id}`, {
                     method: "DELETE",
                     headers: {
                         Authorization: `Bearer ${token}`,

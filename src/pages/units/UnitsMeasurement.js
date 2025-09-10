@@ -44,11 +44,11 @@ export default function UnitsMeasurement({ darkMode }) {
 
     // Funciones para manejar acciones
     const handleDetails = (id) => {
-        navigate(`/odbc/details/${id}`);
+        navigate(`/units-measurement/detail/${id}`);
     };
 
     const handleUpdate = (id) => {
-        navigate(`/opc-server/update/${id}`);
+        navigate(`/units-measurement/update/${id}`);
     };
 
     const handleDelete = async (id) => {
@@ -65,7 +65,7 @@ export default function UnitsMeasurement({ darkMode }) {
 
         if (result.isConfirmed) {
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/opc-conexion/${id}`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/measurementunits/${id}`, {
                     method: "DELETE",
                     headers: {
                         Authorization: `Bearer ${token}`,

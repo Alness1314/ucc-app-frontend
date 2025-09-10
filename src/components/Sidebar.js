@@ -1,4 +1,3 @@
-import React from "react";
 import {
   List,
   Card,
@@ -8,16 +7,16 @@ import {
 } from "@material-tailwind/react";
 import { ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
-export function Sidebar({
-  brandName,
+
+export const Sidebar = ({ brandName,
   brandLogo,
   menuItems,
   footerContent,
   darkMode,
   onCloseSidebar, // Función para cerrar la barra lateral en modo móvil
-  onLogout
-}) {
+  onLogout }) => {
   const navigate = useNavigate();
 
   // Estilos condicionales
@@ -26,6 +25,7 @@ export function Sidebar({
   const hoverStyles = darkMode
     ? "hover:bg-opacity-20 hover:text-white"
     : "hover:bg-gray-300 hover:text-black";
+
 
   return (
     <div className={`h-screen flex items-center justify-center bg-white dark:bg-gray-900 shadow-xl shadow-blue-gray-500/10 dark:shadow-blue-gray-500/5 border border-black/15`}>
@@ -36,14 +36,14 @@ export function Sidebar({
           <img
             src={brandLogo}
             alt="brand"
-            className="h-12 w-19"
+            className="h-12 w-30"
           />
         </div>
         <hr className={`my-2 ${darkMode ? "border-gray-800" : "border-gray-200"}`} />
         <List className="flex-1">
-          {menuItems.map((item, index) => (
+          {menuItems.map((item) => (
             <ListItem
-              key={index}
+              key={item.path}
               className={`${textColor} ${hoverStyles} focus:${hoverStyles} active:${hoverStyles}`}
               onClick={() => {
                 navigate(item.path); // Navegar a la ruta
@@ -93,3 +93,14 @@ export function Sidebar({
     </div>
   );
 }
+
+
+Sidebar.propTypes = {
+  brandName: PropTypes.string,
+  brandLogo: PropTypes.string.isRequired,
+  menuItems: PropTypes.any,
+  footerContent: PropTypes.any,
+  darkMode: PropTypes.any,
+  onCloseSidebar: PropTypes.any,
+  onLogout: PropTypes.any,
+};

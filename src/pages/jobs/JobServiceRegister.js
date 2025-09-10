@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DynamicForm from '../../components/DynamicForm';
-import Swal from 'sweetalert2';
+import SweetAlert2 from '../../components/SweetAlert2';
 import { Typography, Spinner } from '@material-tailwind/react';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import apiService from '../../service/ApiService'
@@ -111,12 +111,12 @@ const JobServiceRegister = ({ darkMode }) => {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.message || 'Error al registrar el usuario');
+                throw new Error(data.message || 'Error al registrar el servicio');
             }
 
-            await Swal.fire({
+            await SweetAlert2({
                 title: 'Éxito',
-                text: 'Usuario registrado correctamente',
+                text: 'Servicio registrado correctamente',
                 icon: 'success',
                 confirmButtonColor: "#3bdb39",
                 confirmButtonText: 'Aceptar',
@@ -124,7 +124,7 @@ const JobServiceRegister = ({ darkMode }) => {
 
             navigate('/cron-services'); // Redirige a la tabla de usuarios
         } catch (error) {
-            await Swal.fire({
+            await SweetAlert2({
                 title: 'Error',
                 text: error.message,
                 icon: 'error',

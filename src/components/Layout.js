@@ -3,7 +3,7 @@ import { Sidebar } from "./Sidebar";
 import { NavbarComponent } from "./Navbar";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { UserCircleIcon, Cog6ToothIcon, PowerIcon } from "@heroicons/react/24/solid";
+import { UserCircleIcon, PowerIcon } from "@heroicons/react/24/solid";
 import { Spinner } from "@material-tailwind/react";
 
 export function Layout({ children, darkMode, toggleDarkMode, onLogout }) {
@@ -48,7 +48,7 @@ export function Layout({ children, darkMode, toggleDarkMode, onLogout }) {
       <div className={`fixed lg:relative z-20 transform transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}>
         <Sidebar
           brandName="UCC 360"
-          brandLogo= {darkMode ? `/img/full_logo_w.png` : `/img/full_logo.png` }
+          brandLogo={darkMode ? `/img/cv360_LW.png` : `/img/cv360_L.png`}
           menuItems={menuItems}
           footerContent="versión 1.0"
           darkMode={darkMode}
@@ -70,7 +70,7 @@ export function Layout({ children, darkMode, toggleDarkMode, onLogout }) {
       <div className="flex-1 flex flex-col overflow-hidden">
         {user && (
           <NavbarComponent
-            brandName="UCC 360"
+            brandName="Unidad Central de Control"
             onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
             user={user}
             menuItems={menuItemsNav}

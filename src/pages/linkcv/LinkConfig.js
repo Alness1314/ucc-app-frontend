@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DynamicTable from "../../components/DynamicTable"; // Importa el componente de la tabla
-import { Button, IconButton, Typography } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import SweetAlert2 from '../../components/SweetAlert2';
-import { EyeIcon, PencilSquareIcon, TrashIcon, PlusIcon } from "@heroicons/react/24/solid"; // Íconos de Heroicons
+import { PlusIcon } from "@heroicons/react/24/solid"; // Íconos de Heroicons
 import Breadcrumbs from "../../components/Breadcrumbs"; // Importa el componente Breadcrumbs
 import { getColumns } from "./TableDataLinkConfig"
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DynamicForm from '../../../components/DynamicForm';
-import Swal from 'sweetalert2';
+import SweetAlert2 from '../../../components/SweetAlert2';
 import { Typography } from '@material-tailwind/react';
 import Breadcrumbs from '../../../components/Breadcrumbs';
 import PropTypes from "prop-types";
@@ -69,7 +69,7 @@ const OdbcConnectionRegister = ({ darkMode }) => {
                 throw new Error(data.message || 'Error al registrar el usuario');
             }
 
-            await Swal.fire({
+            await SweetAlert2({
                 title: 'Éxito',
                 text: 'Usuario registrado correctamente',
                 icon: 'success',
@@ -79,7 +79,7 @@ const OdbcConnectionRegister = ({ darkMode }) => {
 
             navigate('/odbc'); // Redirige a la tabla de usuarios
         } catch (error) {
-            await Swal.fire({
+            await SweetAlert2({
                 title: 'Error',
                 text: error.message,
                 icon: 'error',

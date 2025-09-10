@@ -53,7 +53,7 @@ export default function JobServices({ darkMode }) {
 
             await Swal.fire({
                 title: 'Éxito',
-                text: 'Tarea ejecutada correctamente',
+                text: 'Servicio ejecutado correctamente',
                 icon: 'success',
                 confirmButtonColor: "#3bdb39",
                 confirmButtonText: 'Aceptar',
@@ -81,7 +81,7 @@ export default function JobServices({ darkMode }) {
 
             await Swal.fire({
                 title: 'Éxito',
-                text: 'Tarea reanudada correctamente',
+                text: 'Servicio reanudado correctamente',
                 icon: 'success',
                 confirmButtonColor: "#3bdb39",
                 confirmButtonText: 'Aceptar',
@@ -109,7 +109,7 @@ export default function JobServices({ darkMode }) {
 
             await Swal.fire({
                 title: 'Éxito',
-                text: 'Tarea pausada correctamente',
+                text: 'Servicio pausado correctamente',
                 icon: 'success',
                 confirmButtonColor: "#3bdb39",
                 confirmButtonText: 'Aceptar',
@@ -148,7 +148,7 @@ export default function JobServices({ darkMode }) {
 
                 await SweetAlert2({
                     title: "Eliminado",
-                    text: "Tarea eliminada correctamente",
+                    text: "Servicio eliminado correctamente",
                     icon: "success",
                     confirmButtonText: "Aceptar",
                 });
@@ -157,7 +157,7 @@ export default function JobServices({ darkMode }) {
             } catch (error) {
                 await SweetAlert2({
                     title: "Error",
-                    text: error.message || "Error al eliminar la tarea",
+                    text: error.message || "Error al eliminar el servicio",
                     icon: "error",
                     confirmButtonText: "Aceptar",
                 });

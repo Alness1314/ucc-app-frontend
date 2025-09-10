@@ -5,7 +5,7 @@ import Breadcrumbs from '../../components/Breadcrumbs';
 import { Typography } from '@material-tailwind/react';
 import { MenuItem, TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Grid2 } from '@mui/material';
 import apiService from '../../service/ApiService'; // Importar el servicio de Axios
-import Swal from 'sweetalert2';
+import SweetAlert2 from '../../components/SweetAlert2';
 
 const LinkConfigRegister = ({ darkMode }) => {
     const navigate = useNavigate();
@@ -85,7 +85,7 @@ const LinkConfigRegister = ({ darkMode }) => {
     const sendData = () => {
         apiService.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/measurementsystems/${selectedMeasurementSystem}/linkconfigurations/list`, items)
             .then(response => {
-                Swal.fire({
+                SweetAlert2({
                     title: 'Éxito',
                     text: 'Usuario registrado correctamente',
                     icon: 'success',
@@ -97,7 +97,7 @@ const LinkConfigRegister = ({ darkMode }) => {
             })
             .catch(error => {
                 console.error('Error sending data:', error)
-                Swal.fire({
+                SweetAlert2({
                     title: 'Error',
                     text: error.message,
                     icon: 'error',

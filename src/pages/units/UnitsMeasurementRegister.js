@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DynamicForm from '../../components/DynamicForm';
-import Swal from 'sweetalert2';
 import { Typography } from '@material-tailwind/react';
+import SweetAlert2 from '../../components/SweetAlert2';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import PropTypes from "prop-types";
 
@@ -65,20 +65,20 @@ const UnitsMeasurementRegister = ({ darkMode }) => {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.message || 'Error al registrar el usuario');
+                throw new Error(data.message || 'Error al registrar la unidad de medida');
             }
 
-            await Swal.fire({
+            await SweetAlert2({
                 title: 'Éxito',
-                text: 'Usuario registrado correctamente',
+                text: 'Unidad de medida registrado correctamente',
                 icon: 'success',
                 confirmButtonColor: "#3bdb39",
                 confirmButtonText: 'Aceptar',
             });
 
-            navigate('/odbc'); // Redirige a la tabla de usuarios
+            navigate('/units-measurement'); // Redirige a la tabla de usuarios
         } catch (error) {
-            await Swal.fire({
+            await SweetAlert2({
                 title: 'Error',
                 text: error.message,
                 icon: 'error',
@@ -169,10 +169,10 @@ const UnitsMeasurementRegister = ({ darkMode }) => {
 
             {/* Título y Subtítulo */}
             <Typography variant="h4" className={`mb-1 ${textColor}`}>
-                Registro de Conexion ODBC
+                Registro de Unidad de medida
             </Typography>
             <Typography variant="paragraph" className={`mb-2 ${subTextColor}`}>
-                Completa el formulario para registrar una nueva conexion ODBC
+                Completa el formulario para registrar una nueva Unidad de medida
             </Typography>
             <hr className="my-2 border-gray-800" />
 

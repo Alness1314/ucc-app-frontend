@@ -7,34 +7,34 @@ import {
     Typography,
     Spinner
 } from "@material-tailwind/react";
-import Breadcrumbs from "../../../components/Breadcrumbs"; // Importa el componente Breadcrumbs
-import apiService from '../../../service/ApiService'; // Importar el servicio de Axios
-import PropTypes from "prop-types";
+import Breadcrumbs from "../../components/Breadcrumbs"; // Importa el componente Breadcrumbs
+import apiService from "../../service/ApiService";
+import PropTypes from 'prop-types';
 
-export default function OdbcConnectionDetails({ darkMode }) {
+export const UnitsMeasurementDetail = ({ darkMode }) => {
 
-
-    // Agregar validación de props
-    OdbcConnectionDetails.propTypes = {
-        darkMode: PropTypes.bool.isRequired, // Especifica que darkMode debe ser booleano y obligatorio
-    };
-
-    const { connectionId } = useParams(); // Obtener el ID del usuario desde la URL
-    const [data, setData] = useState(null);
+    const { id } = useParams(); // Obtener el ID del usuario desde la URL
+    const [userData, setUserData] = useState(null);
     const bgColor = darkMode ? "bg-gray-900" : "bg-white";
     const textColor = darkMode ? "text-white" : "text-gray-900";
     const subTextColor = darkMode ? "text-blue-gray-200" : "text-blue-grey";
     const cardBgColor = darkMode ? "bg-gray-800 border-gray-700" : "bg-gray-100 border-gray-200";
 
     useEffect(() => {
-        apiService.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/odbc-conexion/${connectionId}`)
-            .then(response => setData(response.data))
-            .catch(error => {
-                console.error('Error fetching connections', error)
-            });
-    }, [connectionId]);
+        const fetchData = async () => {
+            apiService.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/measurementunits/${id}`, null, true)
+                .then(response => {
+                    if (response.status >= 200 && response.status < 300) {
+                        setUserData(response.data);
+                    }
+                })
+                .catch(error => console.error("Error fetching measurement data:", error))
+        };
 
-    if (!data) {
+        fetchData();
+    }, [id]);
+
+    if (!userData) {
         return (
             <div className="flex items-center justify-center h-screen">
                 <Spinner color="indigo" className="h-10 w-10" />
@@ -44,15 +44,15 @@ export default function OdbcConnectionDetails({ darkMode }) {
     // Definir los campos que queremos mostrar dinámicamente
     const fieldsToDisplay = [
         { label: "Nombre", key: "name" },
-        { label: "Controlador", key: "driver" },
-        { label: "Servidor", key: "host" },
-        { label: "Puerto", key: "port" },
-        { label: "Base de datos", key: "databaseName" },
-        { label: "Usuario", key: "username" },
-        { label: "Contraseña", key: "password" },
-        { label: "Certificado de servidor de confianza", key: "trustServerCertificate", format: (value) => (value ? "Habilitado" : "Deshabilitado") },
-        { label: "Estado", key: "enabled", format: (value) => (value ? "Inactive" : "Active") },
-        { label: "Fecha y hora de creación", key: "dateCreate" },
+        { label: "Volumen UM", key: "volumenUm" },
+        { label: "Volumen Inicial UM", key: "volumenInicialUm" },
+        { label: "Volumen Final UM", key: "volumenFinalUm" },
+        { label: "Temperatura UM", key: "temperaturaUm" },
+        { label: "Presión UM", key: "presionUm" },
+        { label: "Formato Fecha Inicio", key: "fechaInicio" },
+        { label: "Formato Fecha Final", key: "fechaFin" },
+        { label: "Fracción Molar UM", key: "fraccionMolarUm" },
+        { label: "Poder Calorifico UM", key: "poderCalorificoUm" },
     ];
 
     // Función para renderizar los campos dinámicamente
@@ -63,7 +63,7 @@ export default function OdbcConnectionDetails({ darkMode }) {
             if (value === null || value === undefined) return null;
 
             return (
-                <div key={field.key}>
+                <div key={field.label}>
                     <p className="text-gray-900 dark:text-gray-100 font-semibold  ">{field.label}:</p>
                     <p className="text-gray-700 dark:text-gray-400">
                         {field.format ? field.format(value) : value}
@@ -75,8 +75,8 @@ export default function OdbcConnectionDetails({ darkMode }) {
 
     // Generar las rutas para el Breadcrumbs
     const breadcrumbsPaths = [
-        {
-            name: "Home",
+         {
+            name: "Catálogos",
             route: "/Dashboard",
             icon: (
                 <svg
@@ -90,16 +90,12 @@ export default function OdbcConnectionDetails({ darkMode }) {
             ),
         },
         {
-            name: "Conexiones",
-            route: "/connections",
-        },
-        {
-            name: "ODBC",
-            route: "/odbc",
+            name: "Unidades de medida",
+            route: "/units-measurement",
         },
         {
             name: "Detalle",
-            route: `/odbc/details/${connectionId}`,
+            route: `/units-measurement/detail/${id}`,
         },
     ];
 
@@ -107,12 +103,19 @@ export default function OdbcConnectionDetails({ darkMode }) {
         <div className="p-0 m-0 h-[calc(100vh-100px)] overflow-hidden overflow-y-auto overflow-x-auto">
             {/* Breadcrumbs */}
             <Breadcrumbs darkMode={darkMode} paths={breadcrumbsPaths} />
-            <Typography variant="h4" className={`mb-1 ${textColor}`}>
-                Conexion ODBC
-            </Typography>
-            <Typography variant="paragraph" className={`mb-2 ${subTextColor}`}>
-                Detalles sobre la conexion odbc
-            </Typography>
+            {/* Header panel */}
+            <div className="flex justify-between items-center mb-1 mt-4 mr-4">
+                {/* Title */}
+                <div>
+                    <Typography variant="h4" className={`mb-1 ${textColor}`}>
+                        Unidad de medida
+                    </Typography>
+                    <Typography variant="paragraph" className={`mb-2 ${subTextColor}`}>
+                        Detalle de las unidades de medida
+                    </Typography>
+                </div>
+            </div>
+
             <hr className="my-2 border-gray-800" />
             <div className={`${bgColor} max-h-screen grid grid-cols-12 items-center justify-center m-1`}>
                 <div className={`mt-2 col-span-12 col-start-1 ${cardBgColor} rounded-lg shadow-lg`}>
@@ -125,22 +128,22 @@ export default function OdbcConnectionDetails({ darkMode }) {
                         >
                             <img
                                 size="lg"
-                                src="/icons/ODBC.png"
+                                src="/icons/UM.png"
                                 alt="usuario"
                                 className="mt-0 ml-10 mb-2"
                             />
                             <div className="flex w-full flex-col gap-0.5">
                                 <div className="flex items-center justify-between">
                                     <Typography variant="h5" className="text-blue-gray dark:text-gray-300">
-                                        Conexion ODBC
+                                        Unidad de medida
                                     </Typography>
                                 </div>
-                                <Typography className="text-blue-gray dark:text-gray-300">{connectionId}</Typography>
+                                <Typography className="text-blue-gray dark:text-gray-300">{id}</Typography>
                             </div>
                         </CardHeader>
                         <CardBody className="ml-12 mb-10 mr-10 mt-4 p-0">
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                                {renderFields(fieldsToDisplay, data)}
+                                {renderFields(fieldsToDisplay, userData)}
                             </div>
                         </CardBody>
                     </Card>
@@ -149,3 +152,7 @@ export default function OdbcConnectionDetails({ darkMode }) {
         </div>
     );
 }
+
+UnitsMeasurementDetail.propTypes = {
+  darkMode: PropTypes.any.isRequired,
+};

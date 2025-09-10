@@ -40,6 +40,8 @@ import OdbcConnectionDetails from "./pages/connection/odbc/OdbcConnectionDetails
 import UnitsMeasurement from "./pages/units/UnitsMeasurement"
 import UnitsMeasurementRegister from "./pages/units/UnitsMeasurementRegister"
 import EditVariableSettings from "./pages/settings/EditVariableSettings"
+import { UnitsMeasurementDetail } from "./pages/units/UnitsMeasurementDetail";
+import { UnitsMeasurementUpdate } from "./pages/units/UnitsMeasurementUpdate";
 
 const App = () => {
   return (
@@ -412,6 +414,22 @@ const AppContent = () => {
             element={
               <Layout darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLogout={handleLogout}>
                 <UnitsMeasurementRegister darkMode={darkMode} />
+              </Layout>
+            }
+          />
+          <Route
+            path="/units-measurement/detail/:id"
+            element={
+              <Layout darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLogout={handleLogout}>
+                <UnitsMeasurementDetail darkMode={darkMode} />
+              </Layout>
+            }
+          />
+          <Route
+            path="/units-measurement/update/:id"
+            element={
+              <Layout darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLogout={handleLogout}>
+                <UnitsMeasurementUpdate darkMode={darkMode} />
               </Layout>
             }
           />
